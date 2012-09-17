@@ -13,19 +13,25 @@ In your web page:
 <script src="backbone.js"></script>
 <script src="dist/backbone.cloudant.min.js"></script>
 <script>
-jQuery(function($) {
-  $.awesome(); // "awesome"
-});
+  Backbone.Cloudant.database = "/backbone-cloudant-demo/";
+  // start the change handler
+  Backbone.Cloudant.ChangeHandler();
+
+  var all_docs = new Backbone.Cloudant.Docs.Collection();
+  var all_docs_view = new MyView({collection: all_docs, id: '#all_docs'});
+
+  all_docs.fetch().fail(function(){console.log('Could not load all_docs collection');});
+
 </script>
 ```
 
 ## Documentation
 
 ### Installation
- * npm install couchapp // not sure that this is required...
- * npm install grunt-couchapp
- * npm install grunt-contrib-clean
- * npm install grunt-contrib-copy
+ * npm install [couchapp][nodecouchapp] // not sure that this is required...
+ * npm install [grunt-couchapp][grunt-couchapp]
+ * npm install [grunt-contrib-clean][grunt-contrib-clean]
+ * npm install [grunt-contrib-copy][grunt-contrib-copy]
  * Edit `url.json` to point to your database
 
 ### Known issues
@@ -49,7 +55,7 @@ Licensed under the MIT license.
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding
 style. Add unit tests for any new or changed functionality. Lint and test your
-code using [bbb][bbb].
+code using [grunt][grunt].
 
 ### Important notes
 Please don't edit files in the `dist` subdirectory as they are generated via
@@ -79,8 +85,13 @@ Note that the `phantomjs` executable needs to be in the system `PATH` for grunt 
 * [Where does $PATH get set in OS X 10.6 Snow Leopard?](http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard)
 * [How do I change the PATH variable in Linux](https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux)
 
+[grunt]: http://gruntjs.com/
 [phantom]: http://www.phantomjs.org/
 [node]: http://nodejs.org/
 [npm]: http://npmjs.org/
 [min]: https://raw.github.com/cloudant-labs/backbone.cloudant/master/dist/backbone.cloudant.min.js
 [max]: https://raw.github.com/cloudant-labs/backbone.cloudant/master/dist/backbone.cloudant.js
+[nodecouchapp]: https://github.com/mikeal/node.couchapp.js
+[grunt-contrib-clean]: https://github.com/gruntjs/grunt-contrib-clean
+[grunt-couchapp]: https://github.com/elfsternberg/grunt-couchapp
+[grunt-contrib-copy]: https://github.com/gruntjs/grunt-contrib-copy/
