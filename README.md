@@ -27,11 +27,15 @@ In your web page:
 
 ## Documentation
 
+[Documentation][docslink] is generated with [docco][docco]. You can generate
+the docs using `grunt docs`.
+
 ### Installation
  * npm install [couchapp][nodecouchapp] // not sure that this is required...
  * npm install [grunt-couchapp][grunt-couchapp]
  * npm install [grunt-contrib-clean][grunt-contrib-clean]
  * npm install [grunt-contrib-copy][grunt-contrib-copy]
+ * npm install [grunt-docco][grunt-docco] (to build docs)
  * Edit `url.json` to point to your database
 
 ### Known issues
@@ -104,9 +108,12 @@ grunt to see it.
 [grunt-contrib-clean]: https://github.com/gruntjs/grunt-contrib-clean
 [grunt-couchapp]: https://github.com/elfsternberg/grunt-couchapp
 [grunt-contrib-copy]: https://github.com/gruntjs/grunt-contrib-copy/
+[grunt-docco]: https://github.com/DavidSouther/grunt-docco
 [phantomosx]: http://ariya.ofilabs.com/2012/02/phantomjs-and-mac-os-x.html
 [phantominstall]: http://code.google.com/p/phantomjs/wiki/Installation
 [winpath]: http://www.computerhope.com/issues/ch000549.htm
 [osxpath]: http://superuser.com/questions/69130/where-does-path-get-set-in-os-x-10-6-snow-leopard
 [linpath]: https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux
 [testpage]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/index.html
+[docslink]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/docs/backbone.cloudant.html
+[docco]: https://jashkenas.github.com/docco/
