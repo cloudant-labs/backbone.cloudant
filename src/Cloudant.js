@@ -1,11 +1,9 @@
-//## &copy; 2012 Simon Metson, Cloudant Inc.
-//
-// A set of helper objects for interacting with data stored in Cloudant from
-// Backbone.
+//## A set of helper objects for interacting with data stored in Cloudant from Backbone.
 //
 //  * [code on github](https://github.com/cloudant-labs/backbone.cloudant)
 //  * [get in touch](http://twitter.com/drsm79)
 //
+// &copy; 2012 Simon Metson, Cloudant Inc.
 // <center><hr width="50%"/></center>
 
 // Backbone.Cloudant provides an event dispatcher, allowing `_changes` to be
@@ -124,9 +122,19 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
   },
   // Its possible to paginate through server side collections, fetchMore will
   // retrieve the next batch of documents and add them to the collection.
-  // TODO: implement this, need to decide the correct event to fire.
   fetchMore: function(){
-    var query = $.param(this.cloudant_options);
+    // If there's no limit there's no point paging, the first query will have
+    // retrieved everything already.
+    if (this.cloudant_options.limit){
+      // If skip hasn't been set skip is the limit, other wise add the two.
+      if (!this.cloudant_options.skip){
+        this.cloudant_options.skip = this.cloudant_options.limit;
+      } else {
+        this.cloudant_options.skip += this.cloudant_options.limit;
+      }
+      this.fetch({add: true});
+    }
+    // TODO: log a warning?
   },
   // Generate the correct base URL (without query parameters) for the
   // collection. This is a helper function to simplify subclasses. Modify this

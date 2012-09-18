@@ -19,6 +19,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     initialize: function(args){
       this.collection = args.collection;
       this.collection.on("reset", this.render, this);
+      this.collection.on("add", this.render, this);
     }
   });
 
@@ -66,11 +67,25 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     var search = new Backbone.Cloudant.Search.Collection();
     search.design = 'app';
     search.index = 'mysearch';
-    search.cloudant_options = {"q": "a:1"};
+    search.cloudant_options = {"q": "a:1", "limit": 2};
 
     var search_view = new DumbView({collection: search, id: '#search'});
 
     search.fetch().fail(function(){console.log('Could not load search collection');});
+
+
+    var limited_all_docs = new Backbone.Cloudant.Docs.Collection();
+    limited_all_docs.cloudant_options = {"limit": 2, "skip": 5};
+    console.log(limited_all_docs);
+    var limited_all_docs_view = new DumbView({collection: limited_all_docs, id: '#limited_all_docs'});
+
+    limited_all_docs.fetch().fail(function(){console.log('Could not load all_docs collection');});
+
+    function testFetchMore(){
+      limited_all_docs.fetchMore();
+      search.fetchMore();
+    }
+    setTimeout(testFetchMore, 3000);
 
     function addDocs(){
       var doc = new Backbone.Cloudant.Model();
