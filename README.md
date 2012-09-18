@@ -39,7 +39,6 @@ the docs using `grunt docs`.
  * Edit `url.json` to point to your database
 
 ### Known issues
- * Need to implement `fetchMore` for collections
  * Need a decent way of handling auth details
  * Improve collection initialize
  * [grunt-couchapp][grunt-couchapp] can't delete authenticated URL's
