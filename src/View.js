@@ -1,4 +1,3 @@
-/*global Cloudant: true */
 // TODO: make a constructor :)
 Backbone.Cloudant.View = {
   Collection: Backbone.Cloudant.Collection.extend({

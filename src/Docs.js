@@ -1,4 +1,3 @@
-/*global Cloudant: true */
 Backbone.Cloudant.Docs = {
   Collection: Backbone.Cloudant.Collection.extend({
     baseURL: function(){

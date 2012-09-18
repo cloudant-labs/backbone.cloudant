@@ -1,4 +1,3 @@
-/*global Cloudant: true */
 Backbone.Cloudant.Search = {
   Collection: Backbone.Cloudant.Collection.extend({
     design: "my_design",

@@ -1,6 +1,5 @@
-/*global Cloudant: true */
-Backbone.Cloudant = {};
-_.extend(Backbone.Cloudant, Backbone.Events, {
+Backbone.Cloudant = _.clone(Backbone.Events);
+_.extend(Backbone.Cloudant, {
   VERSION: "0.0.1",
   // URL to the root of the database
   database: "http://username.cloudant.com/mydb",
@@ -9,28 +8,33 @@ _.extend(Backbone.Cloudant, Backbone.Events, {
   auth: {},
 
   Watch: function(collection){
-    this.on("change:cloudant_change", function(){
-      collection.handleChange();
+    this.on("change:cloudant_change", function(changes){
+      collection.handleChange(changes);
     });
   },
 
   ChangeHandler: function(since){
-    // Hit changes every 5 seconds, fetch collection if one is fired
-    // TODO: switch to long poll
+    // Hit changes with long poll. If it times out retry 5 seconds later
+    // Fetch watched collections if a change has occurred fired
     var cloudant = this;
     since = since || 0;
-    $.getJSON(cloudant.database + "/_changes", {since: since}, function(data) {
-      if (since !== data.last_seq){
-        since = data.last_seq;
-        cloudant.trigger("change:cloudant_change");
-      }
-    });
-
     function loop(){
       cloudant.ChangeHandler(since);
     }
-
-    setTimeout(loop, 5000);
+    $.getJSON(cloudant.database + "/_changes",
+      {since: since, feed:"longpoll"}).success(
+      function(data) {
+        if (since !== data.last_seq){
+          since = data.last_seq;
+          cloudant.trigger("change:cloudant_change", data.results);
+        }
+        loop();
+      }
+    ).error(
+      function(data) {
+        setTimeout(loop, 5000);
+      }
+    );
   }
 });
 
@@ -65,12 +69,12 @@ Backbone.Cloudant.Model = Backbone.Model.extend({
 
 Backbone.Cloudant.Collection = Backbone.Collection.extend({
   //Base class for other collections to extend
-  // TODO: make a constructor
+  // TODO: make a better initialize
   model: Backbone.Cloudant.Model,
   cloudant_options: {},
+  totalLength: 0,
   initialize: function(args){
     if (args){
-      console.log(args);
       if (args.watch){
         Backbone.Cloudant.Watch(this);
         delete args.watch;
@@ -78,6 +82,11 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
     }
   },
   parse: function(response){
+    if (response.total_rows) {
+      this.totalLength = response.total_rows;
+    } else {
+      this.totalLength = response.rows.length;
+    }
     return response.rows;
   },
   fetchMore: function(){
@@ -94,8 +103,9 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
     }
     return url;
   },
-  handleChange: function(docs){
+  handleChange: function(changes){
     // Override to change sync behaviour
+    // changes is the list of changes reported by Cloudant.
     this.fetch();
   }
 });

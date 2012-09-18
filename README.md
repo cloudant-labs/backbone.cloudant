@@ -35,11 +35,10 @@ In your web page:
  * Edit `url.json` to point to your database
 
 ### Known issues
- * the couchapp grunt tool doesn't work with authenticated URL's, this has
-   been reported upstream...
  * Need to implement `fetchMore` for collections
  * Need a decent way of handling auth details
  * Improve collection initialize
+ * [grunt-couchapp][grunt-couchapp] can't delete authenticated URL's
 
 ## Examples
  * [Live testpage][testpage]
