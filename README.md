@@ -44,6 +44,13 @@ the docs using `grunt docs`.
  * Improve collection initialize
  * [grunt-couchapp][grunt-couchapp] can't delete authenticated URL's
 
+### Using `Backbone.Cloudant` with Apache CouchDB
+There is nothing that prevents using Backbone.Cloudant with [CouchDB][couchdb]
+where the two systems have feature parity. The Search collection isn't usable
+with CouchDB, as that functionality is only available via Cloudant. All other
+collections and change handling should work with CouchDB and are tested on
+CouchDB as well as Cloudant.
+
 ## Examples
  * [Live testpage][testpage]
 
@@ -102,6 +109,7 @@ grunt to see it.
 [phantom]: http://www.phantomjs.org/
 [node]: http://nodejs.org/
 [npm]: http://npmjs.org/
+[couchdb]: http://couchdb.apache.org/
 [min]: https://raw.github.com/cloudant-labs/backbone.cloudant/master/dist/backbone.cloudant.min.js
 [max]: https://raw.github.com/cloudant-labs/backbone.cloudant/master/dist/backbone.cloudant.js
 [nodecouchapp]: https://github.com/mikeal/node.couchapp.js

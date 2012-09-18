@@ -109,6 +109,6 @@ module.exports = function(grunt) {
   grunt.registerTask('wipe', 'rmcouchdb:demo mkcouchdb:demo');
   grunt.registerTask('deploy', 'docs copy couchapp:demo');
   grunt.registerTask('docs', 'build docco');
-  grunt.registerTask('default', 'build');
+  grunt.registerTask('default', 'docs');
 
 };
