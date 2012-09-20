@@ -1,3 +1,5 @@
+// ### Backbone.Cloudant.View
+
 // A `collection` representing a view result. View query parameters should be
 // passed in via `cloudant_options`.
 Backbone.Cloudant.View = {

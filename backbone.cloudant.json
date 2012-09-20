@@ -6,7 +6,7 @@
   "homepage": "https://github.com/cloudant-labs/backbone.cloudant",
   "author": {
     "name": "Simon Metson",
-    "email": "simon+github@cloudant.com"
+    "email": "simon@cloudant.com"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,8 @@
     }
   ],
   "dependencies": {
-    "jquery": ">= 1.6"
+    "jquery": ">= 1.6",
+    "backbone": ">= 0.9"
   },
   "keywords": []
 }

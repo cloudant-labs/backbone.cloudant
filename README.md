@@ -3,7 +3,8 @@
 Helper objects for interacting with data stored in Cloudant from Backbone.
 
 ## Getting Started
-Download the [production version][min] or the [development version][max].
+Download the [production version][min] or the [development version][max]. The
+code depends on [Backbone][backbone] and [Underscore][backbone] only.
 
 In your web page:
 
@@ -124,3 +125,5 @@ grunt to see it.
 [testpage]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/index.html
 [docslink]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/docs/backbone.cloudant.html
 [docco]: https://jashkenas.github.com/docco/
+[backbone]: http://backbonejs.org
+[underscore]: http://underscorejs.org/

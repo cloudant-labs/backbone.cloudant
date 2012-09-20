@@ -52,6 +52,8 @@ _.extend(Backbone.Cloudant, {
   }
 });
 
+// ### Backbone.Cloudant.Model
+
 // A generic document Model that knows how to get the document `_id` correctly
 Backbone.Cloudant.Model = Backbone.Model.extend({
   // CouchDB/Cloudant defines a unique `_id` which we can use directly. See
@@ -86,6 +88,8 @@ Backbone.Cloudant.Model = Backbone.Model.extend({
     return resp;
   }
 });
+
+// ### Backbone.Cloudant.Collection
 
 // Base class for other collections to extend. Deals with paging data into the
 // collection, handling change events and setting the appropriate URL for the
@@ -160,6 +164,8 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
   }
 });
 
+// ### Backbone.Cloudant.Docs
+
 // A collection representing the `_all_docs` resource. Query parameters should
 // be passed in via `cloudant_options`.
 Backbone.Cloudant.Docs = {
@@ -171,10 +177,12 @@ Backbone.Cloudant.Docs = {
     }
   })
 };
+// ### Backbone.Cloudant.Search
+
 // A collection representing the result of a
 // [search](https://cloudant.com/for-developers/search). Query parameters,
 // including the lucene query, should be passed in via `cloudant_options`.
-// **Note** this will *not* work with Apache CouchDB.
+// **Note** this will *not* work with Apache CouchDB out of the box.
 Backbone.Cloudant.Search = {
   Collection: Backbone.Cloudant.Collection.extend({
     // Name of the design document containing the search index.
@@ -206,6 +214,8 @@ Backbone.Cloudant.Search = {
     }
   })
 };
+// ### Backbone.Cloudant.View
+
 // A `collection` representing a view result. View query parameters should be
 // passed in via `cloudant_options`.
 Backbone.Cloudant.View = {

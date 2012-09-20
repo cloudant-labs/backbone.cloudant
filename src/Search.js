@@ -1,7 +1,9 @@
+// ### Backbone.Cloudant.Search
+
 // A collection representing the result of a
 // [search](https://cloudant.com/for-developers/search). Query parameters,
 // including the lucene query, should be passed in via `cloudant_options`.
-// **Note** this will *not* work with Apache CouchDB.
+// **Note** this will *not* work with Apache CouchDB out of the box.
 Backbone.Cloudant.Search = {
   Collection: Backbone.Cloudant.Collection.extend({
     // Name of the design document containing the search index.

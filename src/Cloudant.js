@@ -52,6 +52,8 @@ _.extend(Backbone.Cloudant, {
   }
 });
 
+// ### Backbone.Cloudant.Model
+
 // A generic document Model that knows how to get the document `_id` correctly
 Backbone.Cloudant.Model = Backbone.Model.extend({
   // CouchDB/Cloudant defines a unique `_id` which we can use directly. See
@@ -86,6 +88,8 @@ Backbone.Cloudant.Model = Backbone.Model.extend({
     return resp;
   }
 });
+
+// ### Backbone.Cloudant.Collection
 
 // Base class for other collections to extend. Deals with paging data into the
 // collection, handling change events and setting the appropriate URL for the
