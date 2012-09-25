@@ -29,7 +29,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     Backbone.Cloudant.database = "/backbone-cloudant-demo/";
 
     // start the change handler
-    Backbone.Cloudant.ChangeHandler();
+    Backbone.Cloudant.changeHandler();
 
     var all_docs = new Backbone.Cloudant.Docs.Collection();
 

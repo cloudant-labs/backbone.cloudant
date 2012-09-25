@@ -19,7 +19,7 @@ _.extend(Backbone.Cloudant, {
 
   // Bind the `change:cloudant_change` event to the `collection.handleChange`
   // function.
-  Watch: function(collection){
+  watch: function(collection){
     this.on("change:cloudant_change", function(changes){
       collection.handleChange(changes);
     });
@@ -29,11 +29,11 @@ _.extend(Backbone.Cloudant, {
   // database. This uses `_changes` with long poll and records `since` to
   // avoid seeing duplicate events. If the long poll times out it will be
   // retried 5 seconds later.
-  ChangeHandler: function(since){
+  changeHandler: function(since){
     var cloudant = this;
     since = since || 0;
     function loop(){
-      cloudant.ChangeHandler(since);
+      cloudant.changeHandler(since);
     }
     $.getJSON(cloudant.database + "/_changes",
       {since: since, feed:"longpoll"}).success(
@@ -109,7 +109,7 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
   initialize: function(args){
     if (args){
       if (args.watch){
-        Backbone.Cloudant.Watch(this);
+        Backbone.Cloudant.watch(this);
         delete args.watch;
       }
     }
@@ -159,6 +159,7 @@ Backbone.Cloudant.Collection = Backbone.Collection.extend({
   // will be called. `changes` is the list of changes reported by Cloudant.
   // The default behaviour is simplistic (reload the collection) and likely
   // sub-optimal. Override this function to change sync behaviour.
+
   handleChange: function(changes){
     this.fetch();
   }
