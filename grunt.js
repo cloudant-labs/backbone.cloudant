@@ -64,8 +64,12 @@ module.exports = function(grunt) {
     copy: {
       dist: {
         files: {
-          "test/attachments": "dist/backbone.cloudant.js",
-          "test/attachments/docs": "docs/*"
+          "test/attachments/": "dist/backbone.cloudant.js"
+        }
+      },
+      docs: {
+        files: {
+          "test/attachments/docs/": "docs/*"
         }
       }
     },
@@ -108,6 +112,7 @@ module.exports = function(grunt) {
   grunt.registerTask('build', 'clean lint concat min');
   grunt.registerTask('wipe', 'rmcouchdb:demo mkcouchdb:demo');
   grunt.registerTask('deploy', 'docs copy couchapp:demo');
+  grunt.registerTask('deploynodocs', 'build copy:dist couchapp:demo');
   grunt.registerTask('docs', 'build docco');
   grunt.registerTask('default', 'docs');
 
