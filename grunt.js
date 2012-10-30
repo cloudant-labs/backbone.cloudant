@@ -29,7 +29,7 @@ module.exports = function(grunt) {
     clean: ["dist/",
             "test/attachments/backbone.cloudant.js",
             "test/attachments/backbone.cloudant.min.js",
-            "docs/"],
+            "docs/*.html"],
     min: {
       dist: {
         src: ['dist/<%= pkg.name %>.js'],
