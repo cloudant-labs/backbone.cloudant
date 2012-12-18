@@ -90,11 +90,8 @@ Backbone.Cloudant.Model = Backbone.Model.extend({
   destroy: function(options){
     var url = {url: this.url() + '?' + $.param({rev: this.get('_rev')})};
     options = _.extend(url, options);
-    // this._destroy(options);
-    console.log(this);
     Backbone.Model.prototype.destroy.apply(this, [options]);
-  }//,
-  // _destroy: Backbone.Model.prototype.destroy
+  }
 });
 
 // ### Backbone.Cloudant.Collection
