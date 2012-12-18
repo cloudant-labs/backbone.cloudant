@@ -87,13 +87,20 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     }
     setTimeout(testFetchMore, 3000);
 
-    function addDocs(){
+    function addDocs(did){
       var doc = new Backbone.Cloudant.Model();
       doc.set("a", Math.floor(Math.random()*11));
       doc.save();
 
+      if (did){
+        var deleteMe = new Backbone.Cloudant.Model({_id:did});
+        deleteMe.fetch({success: function(){
+          deleteMe.destroy();
+        }});
+      }
+
       function loop(){
-        addDocs();
+        addDocs(doc.id);
       }
 
       setTimeout(loop, 10000);
