@@ -124,6 +124,6 @@ grunt to see it.
 [linpath]: https://www.google.com/search?q=How+do+I+change+the+PATH+variable+in+Linux
 [testpage]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/index.html
 [docslink]: https://drsm79.cloudant.com/backbone-cloudant-demo/_design/app/docs/backbone.cloudant.html
-[docco]: https://jashkenas.github.com/docco/
+[docco]: http://jashkenas.github.com/docco/
 [backbone]: http://backbonejs.org
 [underscore]: http://underscorejs.org/
