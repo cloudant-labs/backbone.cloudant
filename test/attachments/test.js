@@ -37,7 +37,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
 
     all_docs.fetch().fail(function(){console.log('Could not load all_docs collection');});
 
-    var view = new Backbone.Cloudant.View.Collection();
+    var view = new Backbone.Cloudant.Index();
     view.design = 'app';
     view.view = 'test';
     view.cloudant_options = {"reduce": false, "limit": 10};
@@ -46,7 +46,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
 
     view.fetch().fail(function(){console.log('Could not load view collection');});
 
-    var reducedview = new Backbone.Cloudant.View.Collection({"watch": true});
+    var reducedview = new Backbone.Cloudant.Index({"watch": true});
     reducedview.design = 'app';
     reducedview.view = 'test';
     reducedview.cloudant_options = {"reduce": true, "group": true};
@@ -55,7 +55,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
 
     reducedview.fetch().fail(function(){console.log('Could not load reduced view collection');});
 
-    var watchedview = new Backbone.Cloudant.View.Collection({"watch": true});
+    var watchedview = new Backbone.Cloudant.Index({"watch": true});
     watchedview.design = 'app';
     watchedview.view = 'test';
     watchedview.cloudant_options = {"reduce": false, "limit": 10, "descending": true};
@@ -64,7 +64,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
 
     watchedview.fetch().fail(function(){console.log('Could not load watched view collection');});
 
-    var search = new Backbone.Cloudant.Search.Collection();
+    var search = new Backbone.Cloudant.Search();
     search.design = 'app';
     search.index = 'mysearch';
     search.cloudant_options = {"q": "a:1", "limit": 2};

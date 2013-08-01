@@ -21,8 +21,8 @@ module.exports = function(grunt) {
         src: [
           "src/Cloudant.js",
           "src/Docs.js",
-          "src/Search.js",
-          "src/View.js"
+          "src/Index.js",
+          "src/Search.js"
         ],
         dest: "dist/<%= pkg.name %>.js"
       }

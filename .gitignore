@@ -1,7 +1,7 @@
 test/attachments/backbone.cloudant.min.js
 test/attachments/backbone.cloudant.js
 test/attachments/docs
-dist
+test/attachments/dist
 node_modules
 url.json
 docs

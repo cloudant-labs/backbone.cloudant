@@ -32,6 +32,7 @@ In your web page:
 the docs using `grunt docs` if you have installed the dev dependencies.
 
 ### Installation
+ * **TODO** update to use package.json
  * npm install [couchapp][nodecouchapp] // not sure that this is required...
  * npm install [grunt-couchapp][grunt-couchapp]
  * npm install [grunt-contrib-clean][grunt-contrib-clean]
@@ -55,10 +56,11 @@ CouchDB as well as Cloudant.
  * [Live testpage][testpage]
 
 ## Release History
+ * 3rd August 2013: v0.0.2 - updated for grunt 0.4.x and clarified naming of Index collections
  * 17th September 2012: v0.0.1 - released for public testing
 
 ## License
-Copyright (c) 2012 Cloudant
+Copyright (c) 2012, 2013 Cloudant
 
 Licensed under the MIT license.
 

@@ -10,7 +10,7 @@
 // polled in one place and collections notified to trigger appropriate action.
 Backbone.Cloudant = _.clone(Backbone.Events);
 _.extend(Backbone.Cloudant, {
-  VERSION: "0.0.1",
+  VERSION: "0.0.2",
   // Full URL to the root of the database
   database: "http://username.cloudant.com/mydb",
   // Auth information
@@ -183,56 +183,53 @@ Backbone.Cloudant.Docs = {
     }
   })
 };
+// ### Backbone.Cloudant.Index
+
+// A `collection` representing a view result. View query parameters should be
+// passed in via `cloudant_options`.
+Backbone.Cloudant.Index = Backbone.Cloudant.Collection.extend({
+  // Name of the design document containing the view.
+  design: "my_design",
+  // Name of the view.
+  view: "my_view",
+  // Generate the correct base URL (without query parameters) for the view.
+  baseURL: function(){
+    return [Backbone.Cloudant.database, "_design", this.design, "_view", this.view].join("/");
+  }
+});
+
 // ### Backbone.Cloudant.Search
 
 // A collection representing the result of a
 // [search](https://cloudant.com/for-developers/search). Query parameters,
 // including the lucene query, should be passed in via `cloudant_options`.
 // **Note** this will *not* work with Apache CouchDB out of the box.
-Backbone.Cloudant.Search = {
-  Collection: Backbone.Cloudant.Collection.extend({
-    // Name of the design document containing the search index.
-    design: "my_design",
-    // Name of the index
-    index: "my_index",
-    // To allow for paging searches return a bookmark. This is stored by the
-    // `collection` to allow it to retrieve new results and picked up in the
-    // `parse` function, hence overriding it here.
-    parse: function(response){
-      this.cloudant_options.bookmark = response.bookmark;
-      if (response.total_rows) {
-        this.totalLength = response.total_rows;
-      } else {
-        this.totalLength = response.rows.length;
-      }
-      return response.rows;
-    },
-    // Generate the correct base URL (without query parameters) for the
-    // search.
-    baseURL: function(){
-      return [Backbone.Cloudant.database, "_design", this.design, "_search", this.index].join("/");
-    },
-    // Use the bookmark value held in `this.cloudant_options` to skip results.
-    // Don't need to do anything other than call `fetch` with `{add:true}`
-    // since `parse` stores the bookmark.
-    fetchMore: function(){
-      this.fetch({add: true});
+Backbone.Cloudant.Search = Backbone.Cloudant.Index.extend({
+  // Name of the design document containing the search index.
+  design: "my_design",
+  // Name of the index
+  index: "my_index",
+  // To allow for paging searches return a bookmark. This is stored by the
+  // `collection` to allow it to retrieve new results and picked up in the
+  // `parse` function, hence overriding it here.
+  parse: function(response){
+    this.cloudant_options.bookmark = response.bookmark;
+    if (response.total_rows) {
+      this.totalLength = response.total_rows;
+    } else {
+      this.totalLength = response.rows.length;
     }
-  })
-};
-// ### Backbone.Cloudant.View
-
-// A `collection` representing a view result. View query parameters should be
-// passed in via `cloudant_options`.
-Backbone.Cloudant.View = {
-  Collection: Backbone.Cloudant.Collection.extend({
-    // Name of the design document containing the view.
-    design: "my_design",
-    // Name of the view.
-    view: "my_view",
-    // Generate the correct base URL (without query parameters) for the view.
-    baseURL: function(){
-      return [Backbone.Cloudant.database, "_design", this.design, "_view", this.view].join("/");
-    }
-  })
-};
+    return response.rows;
+  },
+  // Generate the correct base URL (without query parameters) for the
+  // search.
+  baseURL: function(){
+    return [Backbone.Cloudant.database, "_design", this.design, "_search", this.index].join("/");
+  },
+  // Use the bookmark value held in `this.cloudant_options` to skip results.
+  // Don't need to do anything other than call `fetch` with `{add:true}`
+  // since `parse` stores the bookmark.
+  fetchMore: function(){
+    this.fetch({add: true});
+  }
+});

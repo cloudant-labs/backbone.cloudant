@@ -10,7 +10,7 @@
 // polled in one place and collections notified to trigger appropriate action.
 Backbone.Cloudant = _.clone(Backbone.Events);
 _.extend(Backbone.Cloudant, {
-  VERSION: "0.0.1",
+  VERSION: "0.0.2",
   // Full URL to the root of the database
   database: "http://username.cloudant.com/mydb",
   // Auth information
