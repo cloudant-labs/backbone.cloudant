@@ -4,7 +4,7 @@ Helper objects for interacting with data stored in Cloudant from Backbone.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max]. The
-code depends on [Backbone][backbone] and [Underscore][backbone] only.
+code depends on [Backbone][backbone] and [Underscore][underscore] only.
 
 In your web page:
 
@@ -29,7 +29,7 @@ In your web page:
 ## Documentation
 
 [Documentation][docslink] is generated with [docco][docco]. You can generate
-the docs using `grunt docs`.
+the docs using `grunt docs` if you have installed the dev dependencies.
 
 ### Installation
  * npm install [couchapp][nodecouchapp] // not sure that this is required...
@@ -55,7 +55,7 @@ CouchDB as well as Cloudant.
  * [Live testpage][testpage]
 
 ## Release History
- * 17th September 2012: v0.0.1 released for public testing
+ * 17th September 2012: v0.0.1 - released for public testing
 
 ## License
 Copyright (c) 2012 Cloudant

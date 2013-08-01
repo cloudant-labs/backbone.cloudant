@@ -1,12 +1,11 @@
 /*global module:false*/
 
 module.exports = function(grunt) {
-  var DEMO_COUCH_DB = grunt.file.readJSON('url.json')['url'];
-  grunt.log.write(DEMO_COUCH_DB);
+  var DEMO_COUCH_DB = grunt.file.readJSON('url.json').url;
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:backbone.cloudant.json>',
+    pkg: grunt.file.readJSON('package.json'),
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -15,6 +14,9 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
     concat: {
+      options: {
+        separator: "\n"
+      },
       dist: {
         src: [
           "src/Cloudant.js",
@@ -22,15 +24,14 @@ module.exports = function(grunt) {
           "src/Search.js",
           "src/View.js"
         ],
-        dest: "dist/<%= pkg.name %>.js",
-        separator: "\n"
+        dest: "dist/<%= pkg.name %>.js"
       }
     },
     clean: ["dist/",
             "test/attachments/backbone.cloudant.js",
             "test/attachments/backbone.cloudant.min.js",
             "docs/*.html"],
-    min: {
+    uglify: {
       dist: {
         src: ['dist/<%= pkg.name %>.js'],
         dest: 'dist/<%= pkg.name %>.min.js'
@@ -63,22 +64,31 @@ module.exports = function(grunt) {
     },
     copy: {
       dist: {
-        files: {
-          "test/attachments/": "dist/backbone.cloudant.js"
-        }
+        files: [
+          {
+            expand: true,
+            flatten: true,
+            src: ["dist/backbone.cloudant.js"],
+            dest: "test/attachments/"
+          }
+        ]
       },
       docs: {
         files: {
-          "test/attachments/docs/": "docs/*"
+          "test/attachments/": "docs/*"
         }
       }
     },
     docco: {
       app: {
-        src: ['dist/backbone.cloudant.js']
+        src: ['dist/backbone.cloudant.js'],
+        options: {
+          output: 'docs/'
+        }
       }
     },
     jshint: {
+      files: ['src/*.js'],
       options: {
         curly: true,
         eqeqeq: true,
@@ -91,29 +101,32 @@ module.exports = function(grunt) {
         boss: true,
         eqnull: true,
         browser: true,
-        devel: true
-      },
-      globals: {
-        jQuery: true,
-        Backbone: true,
-        _: true,
-        $: true
+        devel: true,
+        globals: {
+          jQuery: true,
+          Backbone: true,
+          _: true,
+          $: true
+        }
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-couchapp');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-docco');
+  grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task.
-  grunt.registerTask('test', 'lint qunit concat min');
-  grunt.registerTask('build', 'clean lint concat min');
-  grunt.registerTask('wipe', 'rmcouchdb:demo mkcouchdb:demo');
-  grunt.registerTask('deploy', 'docs copy couchapp:demo');
-  grunt.registerTask('deploynodocs', 'build copy:dist couchapp:demo');
-  grunt.registerTask('docs', 'build docco');
-  grunt.registerTask('default', 'docs');
+  grunt.registerTask('test', ['qunit', 'jshint', 'concat', 'uglify']);
+  grunt.registerTask('build', ['clean', 'jshint', 'concat', 'uglify']);
+  grunt.registerTask('wipe', ['rmcouchdb:demo', 'mkcouchdb:demo']);
+  grunt.registerTask('deploy', ['docs', 'copy', 'couchapp:demo']);
+  grunt.registerTask('deploynodocs', ['build', 'copy:dist', 'couchapp:demo']);
+  grunt.registerTask('docs', ['build', 'docco']);
+  grunt.registerTask('default', ['docs']);
 
 };
