@@ -32,12 +32,7 @@ In your web page:
 the docs using `grunt docs` if you have installed the dev dependencies.
 
 ### Installation
- * **TODO** update to use package.json
- * npm install [couchapp][nodecouchapp] // not sure that this is required...
- * npm install [grunt-couchapp][grunt-couchapp]
- * npm install [grunt-contrib-clean][grunt-contrib-clean]
- * npm install [grunt-contrib-copy][grunt-contrib-copy]
- * npm install [grunt-docco][grunt-docco] (to build docs)
+ * npm install
  * Edit `url.json` to point to your database
 
 ### Known issues
