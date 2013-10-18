@@ -10,7 +10,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
       list.append('<li>Length: ' + this.collection.length + '</li>');
       list.append('<li>Total Length: ' + this.collection.totalLength + '</li>');
       list.append('<li>Query options: ' + JSON.stringify(this.collection.cloudant_options) + '</li>');
-      // Print 10 rows out to the screen
+      // Print 5 rows out to the screen
       _.each(this.collection.first(5), function(doc){
         list.append('<li><pre><code>' + JSON.stringify(doc) + '</code></pre></li>');
       });
@@ -40,7 +40,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     var view = new Backbone.Cloudant.Index();
     view.design = 'app';
     view.view = 'test';
-    view.cloudant_options = {"reduce": false, "limit": 10};
+    view.cloudant_options = {"reduce": false, "limit": 5};
 
     var view_view = new DumbView({collection: view, id: '#view'});
 
@@ -58,7 +58,7 @@ require(['backbone', 'jquery'], function (Backbone, jquery) {
     var watchedview = new Backbone.Cloudant.Index({"watch": true});
     watchedview.design = 'app';
     watchedview.view = 'test';
-    watchedview.cloudant_options = {"reduce": false, "limit": 10, "descending": true};
+    watchedview.cloudant_options = {"reduce": false, "limit": 5, "descending": true};
 
     var watchedview_view = new DumbView({collection: watchedview, id: '#watchedview'});
 
