@@ -16,7 +16,7 @@ In your web page:
 <script>
   Backbone.Cloudant.database = "/backbone-cloudant-demo/";
   // start the change handler
-  Backbone.Cloudant.ChangeHandler();
+  Backbone.Cloudant.changeHandler();
 
   var all_docs = new Backbone.Cloudant.Docs.Collection();
   var all_docs_view = new MyView({collection: all_docs, id: '#all_docs'});
