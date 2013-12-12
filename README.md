@@ -2,6 +2,10 @@
 
 Helper objects for interacting with data stored in Cloudant from Backbone.
 
+```This is an experimental project to demo the ease of using Cloudant with Backbone. 
+There's an open question around how auth gets done neatly, partly because that is very
+application dependent, but the rest of the code is in a usable state.```
+
 ## Getting Started
 Download the [production version][min] or the [development version][max]. The
 code depends on [Backbone][backbone] and [Underscore][underscore] only.
